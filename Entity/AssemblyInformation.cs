@@ -55,12 +55,13 @@ namespace SourcePro.Csharp.Lab.Entity
         private string _productName;
         private string _copyright;
         private string _trademark;
-        private const string AssemblyTitle = @"^\[assembly\s?:\s*AssemblyTitle\(\""(?<AssemblyTitle>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
-        private const string AssemblyDescription = @"^\[assembly\s?:\s*AssemblyDescription\(\""(?<AssemblyDescription>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
-        private const string AssemblyCompany = @"^\[assembly\s?:\s*AssemblyCompany\(\""(?<AssemblyCompany>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
-        private const string AssemblyProduct = @"^\[assembly\s?:\s*AssemblyProduct\(\""(?<AssemblyProduct>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
-        private const string AssemblyCopyright = @"^\[assembly\s?:\s*AssemblyCopyright\(\""(?<AssemblyCopyright>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
-        private const string AssemblyTrademark = @"^\[assembly\s?:\s*AssemblyTrademark\(\""(?<AssemblyTrademark>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
+        public const string AssemblyTitle = @"^\[assembly\s?:\s*AssemblyTitle\(\""(?<AssemblyTitle>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
+        public const string AssemblyDescription = @"^\[assembly\s?:\s*AssemblyDescription\(\""(?<AssemblyDescription>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
+        public const string AssemblyCompany = @"^\[assembly\s?:\s*AssemblyCompany\(\""(?<AssemblyCompany>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
+        public const string AssemblyProduct = @"^\[assembly\s?:\s*AssemblyProduct\(\""(?<AssemblyProduct>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
+        public const string AssemblyCopyright = @"^\[assembly\s?:\s*AssemblyCopyright\(\""(?<AssemblyCopyright>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
+        public const string AssemblyTrademark = @"^\[assembly\s?:\s*AssemblyTrademark\(\""(?<AssemblyTrademark>[\u0020\u0021\u0023-\uFFFF]*)\""\)]";
+        public const string GeneratorComments = @"^/\*Generate\sBy\sAssemblyInfoManager\sv\d+\.\d+\.\d+\.\d+\s*\.\sTime\s?:\s\d{4}-\d{1,2}-\d{1,2}\s\d{1,2}:\d{1,2}:\d{1,2}\s?\*/$";
 
         #region AssemblyInformation Constructors
 
@@ -72,6 +73,7 @@ namespace SourcePro.Csharp.Lab.Entity
         public AssemblyInformation()
         {
             this.Version = new AssemblyVersion();
+            this.Title = this.Description = this.CompanyName = this.ProductName = this.Copyright = this.Trademark = string.Empty;
         }
 
         #endregion

@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using SourcePro.Csharp.Lab.Entity;
 using SourcePro.Csharp.Lab.Globalization;
 using SourcePro.Csharp.Lab.Resources;
+using SourcePro.Csharp.Lab.Threading;
+using SourcePro.Csharp.Lab.Generators;
 
 namespace SourcePro.Csharp.Lab.Windows
 {
@@ -80,6 +82,8 @@ namespace SourcePro.Csharp.Lab.Windows
             this.CtrlSaveAsTemplateMenuItem.Text = this.CurrentCultureResources["Save"];
             this.CtrlUpdateAssemblyInfoFileMenuItem.Text = this.CurrentCultureResources["Update"];
             this.CtrlUpdateAssemblyInfoDirectoryMenuItem.Text = this.CurrentCultureResources["Update2"];
+            this.CtrlCopyVersionMenuItem.Text = this.CurrentCultureResources["Copy"];
+            this.CtrlClearTemplatesMenuItem.Text = this.CurrentCultureResources["Clear"];
         }
         #endregion
 
@@ -91,6 +95,9 @@ namespace SourcePro.Csharp.Lab.Windows
         {
             this.InitializeMenuStripItems();
             this.CtrlAssemblyInfoPropertiesGrid.SelectedObject = new AssemblyInformation();
+            this.CtrlProgressPanel.Visible = false;
+            this.CtrlOpenAssemblyInfo.Title = this.CurrentCultureResources["OpenDialogTitle"];
+            this.CtrlFoldersBrowser.Description = this.CurrentCultureResources["FolderBrowser"];
         }
         #endregion
 
@@ -134,6 +141,93 @@ namespace SourcePro.Csharp.Lab.Windows
             Culture.ChangeCultureInfo(1033);
             this.InitializeForm();
             this.InitializeControls();
+        }
+        #endregion
+
+        #region CtrlUpdateAssemblyInfoFileMenuItem_Click
+        private void CtrlUpdateAssemblyInfoFileMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.CtrlOpenAssemblyInfo.ShowDialog() == DialogResult.OK)
+            {
+                this.ShowOrHideProgressPanel();
+                new ThreadPoolHelper()
+                {
+                    Arguments = new ThreadArgs()
+                    {
+                        Action = Actions.SingleAssemblyInfoFile,
+                        Information = this.CtrlAssemblyInfoPropertiesGrid.SelectedObject as AssemblyInformation,
+                        Path = this.CtrlOpenAssemblyInfo.FileName,
+                        Updater = new ProgressDescriptionUpdater(this.UpdateProgressDescription)
+                    }
+                }.Start();
+            }
+        }
+        #endregion
+
+        #region ShowOrHideProgressPanel
+        /// <summary>
+        /// 显示或隐藏进度描述组件。
+        /// </summary>
+        /// <param name="showOrHide">是否显示。</param>
+        private void ShowOrHideProgressPanel(bool showOrHide = true)
+        {
+            this.CtrlProgressPanel.Visible = showOrHide;
+        }
+        #endregion
+
+        #region UpdateProgressDescription
+        /// <summary>
+        /// 更新进度描述信息。
+        /// </summary>
+        /// <param name="message">进度描述消息。</param>
+        /// <param name="status">进度状态值。</param>
+        private void UpdateProgressDescription(string message, ProgressStatus status)
+        {
+            if (!this.CtrlRunningLog.InvokeRequired)
+            {
+                this.CtrlRunningLog.AppendText(string.Format("Status {0} : {1}{2}", status, message, Environment.NewLine));
+            }
+            else
+            {
+                ProgressDescriptionUpdater updater = new ProgressDescriptionUpdater(this.UpdateProgressDescription);
+                this.CtrlRunningLog.Invoke(updater, message, status);
+            }
+        }
+        #endregion
+
+        #region CtrlUpdateAssemblyInfoDirectoryMenuItem_Click
+        private void CtrlUpdateAssemblyInfoDirectoryMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.CtrlFoldersBrowser.ShowDialog() == DialogResult.OK)
+            {
+                this.ShowOrHideProgressPanel();
+                new ThreadPoolHelper()
+                {
+                    Arguments = new ThreadArgs()
+                    {
+                        Action = Actions.AllAssemblyInfoFiles,
+                        Information = this.CtrlAssemblyInfoPropertiesGrid.SelectedObject as AssemblyInformation,
+                        Path = this.CtrlFoldersBrowser.SelectedPath,
+                        Updater = new ProgressDescriptionUpdater(this.UpdateProgressDescription)
+                    }
+                }.Start();
+            }
+        }
+        #endregion
+
+        #region CtrlCopyVersionMenuItem_Click
+        private void CtrlCopyVersionMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText((this.CtrlAssemblyInfoPropertiesGrid.SelectedObject as AssemblyInformation).Version.ToString());
+            this.ShowOrHideProgressPanel();
+            this.UpdateProgressDescription(this.CurrentCultureResources["CopyCompleted"], ProgressStatus.Completed);
+        }
+        #endregion
+
+        #region CtrlSaveAsTemplateMenuItem_Click
+        private void CtrlSaveAsTemplateMenuItem_Click(object sender, EventArgs e)
+        {
+            new TemplateGenerator() { TemplateObject = (this.CtrlAssemblyInfoPropertiesGrid.SelectedObject as AssemblyInformation) }.Generate();
         }
         #endregion
     }

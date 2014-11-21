@@ -62,7 +62,7 @@ namespace SourcePro.Csharp.Lab.Entity
         private const string AutoBuildAndRevision = @"^\[assembly\s?:\s*AssemblyVersion\(\""(?<Major>\d+)\.(?<Minor>\d+).\*\""\)\]$";
         private const string AutoRevision = @"^\[assembly\s?:\s*AssemblyVersion\(\""(?<Major>\d+)\.(?<Minor>\d+).(?<Build>\d+).\*\""\)\]$";
         private const string AssemblyVersionStr = @"^\[assembly\s?:\s*AssemblyVersion\(\""(?<Major>\d+)\.(?<Minor>\d+).(?<Build>\d+).(?<Revision>\d+)\""\)\]$";
-        private const string AssemblyFileVersionStr = @"^\[assembly\s?:\s*AssemblyFileVersion\(\""(?<Major>\d+)\.(?<Minor>\d+).(?<Build>\d+).(?<Revision>\d+)\""\)\]$";
+        public const string AssemblyFileVersionStr = @"^\[assembly\s?:\s*AssemblyFileVersion\(\""(?<Major>\d+)\.(?<Minor>\d+).(?<Build>\d+).(?<Revision>\d+)\""\)\]$";
 
 
         #region AssemblyVersion Constructors

@@ -1,0 +1,47 @@
+﻿<#@ template language="C#" #>
+@@ Assembly Info Manager Template
+@@ Create Time : <#= DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") #>
+@@ Machine Name : <#= Environment.MachineName #>
+@@ Current User : <#= string.Format("{0}\\{1}", Environment.UserDomainName, Environment.UserName) #>
+@@ Installed Directory : <#= AppDomain.CurrentDomain.BaseDirectory #>
+@@ Project Url : https://github.com/SourceproStudio/Utility/tree/AssemblyInfoManager
+@@ Developer : Wang Yucai
+@@ E-mail : MasterDuner@Yeah.net or Yucai.Wang-Public@Outlook.com
+@@ Copyright © <#= DateTime.Now.Year #> Wang Yucai. All rights reserved.
+
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+@@ Assembly Base Information
+[assembly: AssemblyTitle("<#= this.TemplateObject.Title #>")]
+[assembly: AssemblyDescription("<#= this.TemplateObject.Description #>")]
+[assembly: AssemblyCompany("<#= this.TemplateObject.CompanyName #>")]
+[assembly: AssemblyProduct("<#= this.TemplateObject.ProductName #>")]
+[assembly: AssemblyCopyright("<#= this.TemplateObject.Copyright #>")]
+[assembly: AssemblyTrademark("<#= this.TemplateObject.Trademark #>")]
+
+@@ Assembly Version
+<# 
+    if(this.TemplateObject.Version.AutoGenerateRevisionNumber && !this.TemplateObject.Version.AutoGenerateBuildNumber)
+    {
+#>
+[assembly: AssemblyVersion("<#= this.TemplateObject.Version.Major #>.<#= this.TemplateObject.Version.Minor #>.<#= this.TemplateObject.Version.Build #>.*")]
+<# 
+    }
+    if(this.TemplateObject.Version.AutoGenerateRevisionNumber && this.TemplateObject.Version.AutoGenerateBuildNumber)
+    {
+#>
+[assembly: AssemblyVersion("<#= this.TemplateObject.Version.Major #>.<#= this.TemplateObject.Version.Minor #>.*")]
+<#
+    }
+    if(!this.TemplateObject.Version.AutoGenerateRevisionNumber && !this.TemplateObject.Version.AutoGenerateBuildNumber)
+    {
+        string version = this.TemplateObject.Version.ToString();
+#>
+[assembly: AssemblyVersion("<#= version #>")]
+[assembly: AssemblyFileVersion("<#= version #>")]
+<# 
+    }
+#>
+
+@@ Generate by AssemblyInfoManager v<#= this.GetType().Assembly.GetName().Version.ToString() #>
