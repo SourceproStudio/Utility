@@ -1,15 +1,15 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle(".NET程序集信息管理工具")]
-[assembly: AssemblyDescription("用于修改AssemblyInfo.cs文件中的程序集信息")]
+[assembly: AssemblyTitle(".Net 程序集信息编辑器")]
+[assembly: AssemblyDescription("程序集信息编辑器")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SourcePro Studio")]
-[assembly: AssemblyProduct("AssemblyInfo Management Tool")]
-[assembly: AssemblyCopyright("Copyright © 2014 Wang Yucai")]
+[assembly: AssemblyProduct("Assembly Information Editor")]
+[assembly: AssemblyCopyright("Copyright © 2014 Wang Yucai. All rights reserved.")]
 [assembly: AssemblyTrademark("SourcePro Studio")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,6 @@ using System.Runtime.InteropServices;
 // 可以指定所有这些值，也可以使用“内部版本号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.0.5441.37112")]
+[assembly: AssemblyFileVersion("2.0.5441.37112")]
+/*Generate By AssemblyInfoManager v2.0.5441.37029. Time: 2014-11-24 10:18:32*/

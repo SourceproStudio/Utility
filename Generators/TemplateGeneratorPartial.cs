@@ -20,8 +20,8 @@
 #endregion
 
 using System;
-using SourcePro.Csharp.Lab.Entity;
 using System.IO;
+using SourcePro.Csharp.Lab.Entity;
 
 namespace SourcePro.Csharp.Lab.Generators
 {

@@ -32,26 +32,25 @@
             this.CtrlFeaturesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CtrlCreateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.CtrlOpenTemplateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CtrlRecentlyTemplateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CtrlClearTemplatesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.CtrlSaveAsTemplateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.CtrlUpdateAssemblyInfoFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CtrlUpdateAssemblyInfoDirectoryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.CtrlCopyVersionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.CtrlExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CtrlLanguageMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CtrlChineseMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CtrlEnglishMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CtrlProgressPanel = new System.Windows.Forms.Panel();
+            this.CtrlRunningLog = new System.Windows.Forms.RichTextBox();
             this.CtrlAssemblyInfoPropertiesGrid = new System.Windows.Forms.PropertyGrid();
             this.CtrlOpenAssemblyInfo = new System.Windows.Forms.OpenFileDialog();
-            this.CtrlRunningLog = new System.Windows.Forms.RichTextBox();
             this.CtrlFoldersBrowser = new System.Windows.Forms.FolderBrowserDialog();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.CtrlCopyVersionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtrlClearTemplatesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CtrlMenu.SuspendLayout();
             this.CtrlProgressPanel.SuspendLayout();
             this.SuspendLayout();
@@ -72,7 +71,6 @@
             this.CtrlFeaturesMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CtrlCreateMenuItem,
             this.toolStripSeparator1,
-            this.CtrlOpenTemplateMenuItem,
             this.CtrlRecentlyTemplateMenuItem,
             this.CtrlClearTemplatesMenuItem,
             this.toolStripSeparator2,
@@ -93,23 +91,26 @@
             this.CtrlCreateMenuItem.Name = "CtrlCreateMenuItem";
             this.CtrlCreateMenuItem.Size = new System.Drawing.Size(334, 22);
             this.CtrlCreateMenuItem.Text = "新建(&N)";
+            this.CtrlCreateMenuItem.Click += new System.EventHandler(this.CtrlCreateMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(331, 6);
             // 
-            // CtrlOpenTemplateMenuItem
-            // 
-            this.CtrlOpenTemplateMenuItem.Name = "CtrlOpenTemplateMenuItem";
-            this.CtrlOpenTemplateMenuItem.Size = new System.Drawing.Size(334, 22);
-            this.CtrlOpenTemplateMenuItem.Text = "打开模板(&O)";
-            // 
             // CtrlRecentlyTemplateMenuItem
             // 
             this.CtrlRecentlyTemplateMenuItem.Name = "CtrlRecentlyTemplateMenuItem";
             this.CtrlRecentlyTemplateMenuItem.Size = new System.Drawing.Size(334, 22);
             this.CtrlRecentlyTemplateMenuItem.Text = "最近的模板(&R)";
+            // 
+            // CtrlClearTemplatesMenuItem
+            // 
+            this.CtrlClearTemplatesMenuItem.Enabled = false;
+            this.CtrlClearTemplatesMenuItem.Name = "CtrlClearTemplatesMenuItem";
+            this.CtrlClearTemplatesMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.CtrlClearTemplatesMenuItem.Text = "清空所有模板(&C)";
+            this.CtrlClearTemplatesMenuItem.Click += new System.EventHandler(this.CtrlClearTemplatesMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -145,6 +146,19 @@
             this.CtrlUpdateAssemblyInfoDirectoryMenuItem.Text = "更新指定目录下的所有程序集信息";
             this.CtrlUpdateAssemblyInfoDirectoryMenuItem.Click += new System.EventHandler(this.CtrlUpdateAssemblyInfoDirectoryMenuItem_Click);
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(331, 6);
+            // 
+            // CtrlCopyVersionMenuItem
+            // 
+            this.CtrlCopyVersionMenuItem.Name = "CtrlCopyVersionMenuItem";
+            this.CtrlCopyVersionMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.CtrlCopyVersionMenuItem.Size = new System.Drawing.Size(334, 22);
+            this.CtrlCopyVersionMenuItem.Text = "复制版本号";
+            this.CtrlCopyVersionMenuItem.Click += new System.EventHandler(this.CtrlCopyVersionMenuItem_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
@@ -156,6 +170,7 @@
             this.CtrlExitMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
             this.CtrlExitMenuItem.Size = new System.Drawing.Size(334, 22);
             this.CtrlExitMenuItem.Text = "退出";
+            this.CtrlExitMenuItem.Click += new System.EventHandler(this.CtrlExitMenuItem_Click);
             // 
             // CtrlLanguageMenuItem
             // 
@@ -189,6 +204,17 @@
             this.CtrlProgressPanel.Size = new System.Drawing.Size(584, 200);
             this.CtrlProgressPanel.TabIndex = 1;
             // 
+            // CtrlRunningLog
+            // 
+            this.CtrlRunningLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CtrlRunningLog.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.CtrlRunningLog.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.CtrlRunningLog.Location = new System.Drawing.Point(0, 0);
+            this.CtrlRunningLog.Name = "CtrlRunningLog";
+            this.CtrlRunningLog.Size = new System.Drawing.Size(584, 200);
+            this.CtrlRunningLog.TabIndex = 0;
+            this.CtrlRunningLog.Text = "";
+            // 
             // CtrlAssemblyInfoPropertiesGrid
             // 
             this.CtrlAssemblyInfoPropertiesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -203,40 +229,9 @@
             this.CtrlOpenAssemblyInfo.FileName = "AssemblyInfo";
             this.CtrlOpenAssemblyInfo.Filter = "C# File|*.cs";
             // 
-            // CtrlRunningLog
-            // 
-            this.CtrlRunningLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CtrlRunningLog.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.CtrlRunningLog.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.CtrlRunningLog.Location = new System.Drawing.Point(0, 0);
-            this.CtrlRunningLog.Name = "CtrlRunningLog";
-            this.CtrlRunningLog.Size = new System.Drawing.Size(584, 200);
-            this.CtrlRunningLog.TabIndex = 0;
-            this.CtrlRunningLog.Text = "";
-            // 
             // CtrlFoldersBrowser
             // 
             this.CtrlFoldersBrowser.ShowNewFolderButton = false;
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(331, 6);
-            // 
-            // CtrlCopyVersionMenuItem
-            // 
-            this.CtrlCopyVersionMenuItem.Name = "CtrlCopyVersionMenuItem";
-            this.CtrlCopyVersionMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.CtrlCopyVersionMenuItem.Size = new System.Drawing.Size(334, 22);
-            this.CtrlCopyVersionMenuItem.Text = "复制版本号";
-            this.CtrlCopyVersionMenuItem.Click += new System.EventHandler(this.CtrlCopyVersionMenuItem_Click);
-            // 
-            // CtrlClearTemplatesMenuItem
-            // 
-            this.CtrlClearTemplatesMenuItem.Enabled = false;
-            this.CtrlClearTemplatesMenuItem.Name = "CtrlClearTemplatesMenuItem";
-            this.CtrlClearTemplatesMenuItem.Size = new System.Drawing.Size(334, 22);
-            this.CtrlClearTemplatesMenuItem.Text = "清空所有模板(&C)";
             // 
             // MainWindow
             // 
@@ -270,7 +265,6 @@
         private System.Windows.Forms.ToolStripMenuItem CtrlFeaturesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CtrlCreateMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem CtrlOpenTemplateMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CtrlRecentlyTemplateMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem CtrlExitMenuItem;

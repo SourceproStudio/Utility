@@ -4,10 +4,11 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using SourcePro.Csharp.Lab.Entity;
+using SourcePro.Csharp.Lab.Generators;
 using SourcePro.Csharp.Lab.Globalization;
 using SourcePro.Csharp.Lab.Resources;
+using SourcePro.Csharp.Lab.Templates;
 using SourcePro.Csharp.Lab.Threading;
-using SourcePro.Csharp.Lab.Generators;
 
 namespace SourcePro.Csharp.Lab.Windows
 {
@@ -74,7 +75,6 @@ namespace SourcePro.Csharp.Lab.Windows
             this.CtrlFeaturesMenuItem.Text = this.CurrentCultureResources["Features"];
             this.CtrlCreateMenuItem.Text = this.CurrentCultureResources["Create"];
             this.CtrlExitMenuItem.Text = this.CurrentCultureResources["Exit"];
-            this.CtrlOpenTemplateMenuItem.Text = this.CurrentCultureResources["Open"];
             this.CtrlRecentlyTemplateMenuItem.Text = this.CurrentCultureResources["Recently"];
             this.CtrlLanguageMenuItem.Text = this.CurrentCultureResources["Language"];
             this.CtrlChineseMenuItem.Text = this.CurrentCultureResources["Chinese"];
@@ -84,6 +84,35 @@ namespace SourcePro.Csharp.Lab.Windows
             this.CtrlUpdateAssemblyInfoDirectoryMenuItem.Text = this.CurrentCultureResources["Update2"];
             this.CtrlCopyVersionMenuItem.Text = this.CurrentCultureResources["Copy"];
             this.CtrlClearTemplatesMenuItem.Text = this.CurrentCultureResources["Clear"];
+            this.InitializeRecentlyMenuStripItems();
+        }
+        #endregion
+
+        #region InitializeRecentlyMenuStripItems
+        /// <summary>
+        /// 初始化最近的模板菜单。
+        /// </summary>
+        private void InitializeRecentlyMenuStripItems()
+        {
+            dynamic[] templates = TemplateFinder.GetAllTemplates();
+            if (templates.Length > 0)
+            {
+                this.CtrlClearTemplatesMenuItem.Enabled = true;
+                foreach (var item in templates)
+                {
+                    ToolStripMenuItem menuItem = new ToolStripMenuItem(string.Format("{0} ({1})", item.Name, item.CreateTime.ToString("yyyy-MM-dd")))
+                    {
+                        ToolTipText = item.Path,
+                        Tag = item.Path
+                    };
+                    menuItem.Click += new EventHandler(this.RecentlyTemplateMenuItem_Click);
+                    this.CtrlRecentlyTemplateMenuItem.DropDownItems.Add(menuItem);
+                }
+            }
+            else
+            {
+                this.CtrlClearTemplatesMenuItem.Enabled = false;
+            }
         }
         #endregion
 
@@ -228,6 +257,44 @@ namespace SourcePro.Csharp.Lab.Windows
         private void CtrlSaveAsTemplateMenuItem_Click(object sender, EventArgs e)
         {
             new TemplateGenerator() { TemplateObject = (this.CtrlAssemblyInfoPropertiesGrid.SelectedObject as AssemblyInformation) }.Generate();
+        }
+        #endregion
+
+        #region CtrlClearTemplatesMenuItem_Click
+        private void CtrlClearTemplatesMenuItem_Click(object sender, EventArgs e)
+        {
+            TemplateFinder.DeleteAll();
+            this.CtrlRecentlyTemplateMenuItem.DropDownItems.Clear();
+            this.CtrlClearTemplatesMenuItem.Enabled = false;
+        }
+        #endregion
+
+        #region RecentlyTemplateMenuItem_Click
+        private void RecentlyTemplateMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = (sender as ToolStripMenuItem).Tag.ToString();
+            if (File.Exists(path))
+            {
+                try
+                {
+                    this.CtrlAssemblyInfoPropertiesGrid.SelectedObject = AssemblyInformation.Create(path);
+                }
+                catch { }
+            }
+        }
+        #endregion
+
+        #region CtrlCreateMenuItem_Click
+        private void CtrlCreateMenuItem_Click(object sender, EventArgs e)
+        {
+            this.CtrlAssemblyInfoPropertiesGrid.SelectedObject = new AssemblyInformation();
+        }
+        #endregion
+
+        #region CtrlExitMenuItem_Click
+        private void CtrlExitMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
         #endregion
     }

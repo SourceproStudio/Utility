@@ -19,7 +19,6 @@
 
 #endregion
 
-using System;
 using SourcePro.Csharp.Lab.Entity;
 
 namespace SourcePro.Csharp.Lab.Threading
