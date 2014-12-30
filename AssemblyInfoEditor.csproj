@@ -56,6 +56,7 @@
     <Compile Include="Commons\Entity\FolderProperty.cs" />
     <Compile Include="Commons\Entity\HistoryObject.cs" />
     <Compile Include="Commons\Entity\Version.cs" />
+    <Compile Include="Commons\JobProgress.cs" />
     <Compile Include="Commons\MessageBoxCaptions.cs" />
     <Compile Include="Commons\Platform.cs" />
     <Compile Include="Commons\XNamespaces.cs" />
@@ -70,6 +71,21 @@
     </Compile>
     <Compile Include="ComponentModel\Design\FolderCollectionEditor.cs" />
     <Compile Include="ComponentModel\Design\FolderSelectionEditor.cs" />
+    <Compile Include="ComponentModel\Trace\TraceManager.cs" />
+    <Compile Include="ComponentModel\Trace\TraceViewerInvoker.cs" />
+    <Compile Include="ComponentModel\Trace\TraceViewerInvokerArgs.cs" />
+    <Compile Include="Forms\BuildForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BuildForm.Designer.cs">
+      <DependentUpon>BuildForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BuildForm.Methods.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BuildForm.Variables.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +102,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ComponentModel\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BuildForm.resx">
+      <DependentUpon>BuildForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -113,6 +132,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="aieditor.regex.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

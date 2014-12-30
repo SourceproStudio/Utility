@@ -6,7 +6,7 @@
  * Current Thread User : GUOCOLAND\wangyucai
  * Machine Name : GLCHQWYCWINW7
  * Visual Studio : Microsoft Visual Studio 2010 Ultimate Edition
- * Create Time : 2014-12-25 16:16:55
+ * Create Time : 2014-12-30 16:28:47
  * Common Language Runtime : 4.0.30319.18444
  * Minimum .Net Framework Version : 3.5
  * 
@@ -19,38 +19,27 @@
 
 #endregion
 
+using System;
 
-namespace SourcePro.Csharp.Lab.Commons
+namespace SourcePro.Csharp.Lab.ComponentModel.Trace
 {
     /// <summary>
     /// <para>
-    /// 定义了XML序列化所需的命名空间常量。
+    /// 用于输出消息的委托类型。
     /// </para>
     /// <para>
-    /// Namespace : <see cref="SourcePro.Csharp.Lab.Commons"/>
+    /// Namespace : <see cref="SourcePro.Csharp.Lab.ComponentModel.Trace"/>
     /// </para>
     /// <para>
-    /// Type : <see cref="XNamespaces"/>
+    /// Type : <see cref="TraceViewerInvoker"/>
     /// </para>
     /// <para>
     /// The minimum .Net Framework version requirements : 3.5
     /// </para>
     /// </summary>
-    /// <seealso cref="SourcePro.Csharp.Lab.Commons"/>
-    public class XNamespaces
-    {
-        public const string NameSpace = "https://github.com/SourceproStudio";
-
-        #region XNamespaces Constructors
-
-        /// <summary>
-        /// 用于初始化一个<see cref="XNamespaces" />对象实例。
-        /// </summary>
-        public XNamespaces()
-        { }
-
-        #endregion
-    }
+    /// <param name="arg"><see cref="TraceViewerInvokerArgs"/>对象实例。</param>
+    /// <seealso cref="SourcePro.Csharp.Lab.ComponentModel.Trace"/>
+    public delegate void TraceViewerInvoker(TraceViewerInvokerArgs arg);
 }
 
 /*

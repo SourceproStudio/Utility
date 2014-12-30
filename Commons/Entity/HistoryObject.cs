@@ -20,9 +20,9 @@
 #endregion
 
 using System;
-using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace SourcePro.Csharp.Lab.Commons.Entity
 {
@@ -95,7 +95,7 @@ namespace SourcePro.Csharp.Lab.Commons.Entity
         public void Save()
         {
             FileInfo file = new FileInfo(HistoryObject.OutputPath);
-            using (Stream outputStream = file.OpenWrite())
+            using (Stream outputStream = new FileStream(file.FullName, FileMode.Create, FileAccess.Write))
             {
                 try { base.Serialize(outputStream); }
                 finally { outputStream.Close(); }

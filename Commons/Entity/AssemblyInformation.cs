@@ -20,12 +20,12 @@
 #endregion
 
 using System;
-using System.Xml.Serialization;
-using System.ComponentModel;
 using System.Collections.Generic;
-using SourcePro.Csharp.Lab.ComponentModel.Design;
+using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.IO;
+using System.Xml.Serialization;
+using SourcePro.Csharp.Lab.ComponentModel.Design;
 
 namespace SourcePro.Csharp.Lab.Commons.Entity
 {

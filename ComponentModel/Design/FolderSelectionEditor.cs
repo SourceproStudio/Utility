@@ -20,8 +20,8 @@
 #endregion
 
 using System;
-using System.Drawing.Design;
 using System.ComponentModel;
+using System.Drawing.Design;
 using System.Windows.Forms;
 
 namespace SourcePro.Csharp.Lab.ComponentModel.Design

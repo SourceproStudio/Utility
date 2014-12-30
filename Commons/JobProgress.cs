@@ -6,7 +6,7 @@
  * Current Thread User : GUOCOLAND\wangyucai
  * Machine Name : GLCHQWYCWINW7
  * Visual Studio : Microsoft Visual Studio 2010 Ultimate Edition
- * Create Time : 2014-12-25 14:36:55
+ * Create Time : 2014-12-30 13:42:43
  * Common Language Runtime : 4.0.30319.18444
  * Minimum .Net Framework Version : 3.5
  * 
@@ -19,47 +19,40 @@
 
 #endregion
 
+using System;
 
 namespace SourcePro.Csharp.Lab.Commons
 {
     /// <summary>
     /// <para>
-    /// 提供了消息对话框常用的标题常量。
+    /// 定义了作业的进度。
     /// </para>
     /// <para>
     /// Namespace : <see cref="SourcePro.Csharp.Lab.Commons"/>
     /// </para>
     /// <para>
-    /// Type : <see cref="MessageBoxCaptions"/>
+    /// Type : <see cref="JobProgress"/>
     /// </para>
     /// <para>
     /// The minimum .Net Framework version requirements : 3.5
     /// </para>
-    /// <para>
-    /// <see cref="MessageBoxCaptions"/> is a static type !
-    /// </para>
     /// </summary>
-    /// <remarks>
-    /// <see cref="MessageBoxCaptions"/> is a static type !
-    /// </remarks>
     /// <seealso cref="SourcePro.Csharp.Lab.Commons"/>
-    public static class MessageBoxCaptions
+    [Serializable, Flags]
+    public enum JobProgress
     {
-        #region Warning
-        public static readonly string Warning = "Warning !";
-        #endregion
-
-        #region Prompt
-        public static readonly string Prompt = "Prompt";
-        #endregion
-
-        #region Error
-        public static readonly string Error = "Error !";
-        #endregion
-
-        #region Ask
-        public static readonly string Ask = "Ask !";
-        #endregion
+        Start = 0,
+        Doing = 1,
+        Failed = 2,
+        Successful = 4,
+        Completed = 8,
+        Searching = 16,
+        End = 32,
+        Reading = 64,
+        Writing = 128,
+        Abort = 256,
+        Cancel = 512,
+        Skip = 1024
     }
 }
 

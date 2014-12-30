@@ -20,12 +20,12 @@
 #endregion
 
 using System;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using SourcePro.Csharp.Lab.Commons.Entity;
-using System.IO;
 using SourcePro.Csharp.Lab.Commons;
-using System.Linq;
+using SourcePro.Csharp.Lab.Commons.Entity;
 
 namespace SourcePro.Csharp.Lab.Forms
 {
@@ -97,8 +97,9 @@ namespace SourcePro.Csharp.Lab.Forms
                 {
                     ToolStripMenuItem menustripItem = new ToolStripMenuItem(item) { Tag = item };
                     menustripItem.Click += (
-                            (sender, e) => { 
-                                this.OpenProject((sender as ToolStripMenuItem).Tag.ToString()); 
+                            (sender, e) =>
+                            {
+                                this.OpenProject((sender as ToolStripMenuItem).Tag.ToString());
                             }
                         );
                     this.CtrlMenuStripItem_Recently.DropDownItems.Add(menustripItem);
@@ -116,6 +117,32 @@ namespace SourcePro.Csharp.Lab.Forms
             this.CtrlMenuStripItem_CreateNew.Click += new EventHandler(DoCreateNew);
             this.CtrlMenuStripItem_Save.Click += new EventHandler(DoSave);
             this.CtrlMenuStripItem_Open.Click += new EventHandler(DoOpenProject);
+            this.CtrlMenuStripItem_ClearRecently.Click += new EventHandler(DoClearRecently);
+            this.CtrlMenuStripItem_Start.Click += new EventHandler(DoBuild);
+        }
+        #endregion
+
+        #region DoBuild
+        private void DoBuild(object sender, EventArgs e)
+        {
+            using (BuildForm buildFrm = new BuildForm()
+            {
+                AssemblyInformation = this.CtrlPropertyGrid_Main.SelectedObject as AssemblyInformation,
+                Size = this.Size
+            })
+            {
+                buildFrm.ShowDialog(this);
+            }
+        }
+        #endregion
+
+        #region CtrlMenuStripItem_ClearRecently Click Event Handler : DoClearRecently
+        private void DoClearRecently(object sender, EventArgs e)
+        {
+            this._history.Files.Clear();
+            this._history.Save();
+            this.CtrlMenuStripItem_Recently.DropDownItems.Clear();
+            this.CtrlMenuStripItem_Recently.Enabled = false;
         }
         #endregion
 
@@ -138,9 +165,9 @@ namespace SourcePro.Csharp.Lab.Forms
                 path = this.CtrlSaveFileDialog_SaveProject.FileName;
             if (!string.IsNullOrEmpty(path))
             {
-                information.Save(path, this._isCreateNew);
                 information.Version.SetRawValues();
                 information.FileVersion.SetRawValues();
+                information.Save(path, this._isCreateNew);
                 this.SaveHistory(path);
             }
         }
@@ -158,17 +185,21 @@ namespace SourcePro.Csharp.Lab.Forms
         #region OpenProject
         private void OpenProject(string file)
         {
-            using (Stream destinationStream = new FileStream(file, FileMode.Open, FileAccess.Read))
+            if (File.Exists(file))
             {
-                try
+                using (Stream destinationStream = new FileStream(file, FileMode.Open, FileAccess.Read))
                 {
-                    this._isCreateNew = false;
-                    this.CtrlPropertyGrid_Main.SelectedObject = AssemblyInformation.Deserialize<AssemblyInformation>(destinationStream);
-                    this.SetMenuStripItemsEnabled(true, this.CtrlMenuStripItem_Save, this.CtrlMenuStripItem_SaveAs, this.CtrlMenuStripItem_Start, this.CtrlMenuStripItem_Build);
+                    try
+                    {
+                        this._isCreateNew = false;
+                        this.CtrlPropertyGrid_Main.SelectedObject = AssemblyInformation.Deserialize<AssemblyInformation>(destinationStream);
+                        this.SetMenuStripItemsEnabled(true, this.CtrlMenuStripItem_Save, this.CtrlMenuStripItem_SaveAs, this.CtrlMenuStripItem_Start, this.CtrlMenuStripItem_Build);
+                    }
+                    catch { MessageBox.Show("Unable to open project file!", MessageBoxCaptions.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                    finally { destinationStream.Close(); }
                 }
-                catch { MessageBox.Show("Unable to open project file!", MessageBoxCaptions.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-                finally { destinationStream.Close(); }
             }
+            else MessageBox.Show("The project not found!", MessageBoxCaptions.Warning, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         #endregion
 
