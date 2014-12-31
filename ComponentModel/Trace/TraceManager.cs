@@ -84,7 +84,11 @@ namespace SourcePro.Csharp.Lab.ComponentModel.Trace
         private void InternalOutput(TraceViewerInvokerArgs args)
         {
             if (this.Console.InvokeRequired) this.Console.Invoke(this.Event, args);
-            else this.Console.AppendText(args.ToString());
+            else
+            {
+                this.Console.AppendText(args.ToString());
+                this.Console.ScrollToCaret();
+            }
         }
         #endregion
     }

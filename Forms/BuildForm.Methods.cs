@@ -23,6 +23,10 @@ using System;
 using SourcePro.Csharp.Lab.ComponentModel.Trace;
 using System.ComponentModel;
 using SourcePro.Csharp.Lab.Commons;
+using System.IO;
+using SourcePro.Csharp.Lab.Commons.Entity;
+using System.Threading;
+using System.Linq;
 
 namespace SourcePro.Csharp.Lab.Forms
 {
@@ -54,6 +58,7 @@ namespace SourcePro.Csharp.Lab.Forms
         protected override void InitializeControls()
         {
             base.InitializeControls();
+            this.SetProgressImageVisible(true);
             this.InitializeVariables();
             this.StartBackgroundJob();
         }
@@ -62,21 +67,93 @@ namespace SourcePro.Csharp.Lab.Forms
         #region RegisterControlsEventHandlers
         protected override void RegisterControlsEventHandlers()
         {
-            this.CtrlBackgroundWorker_BuildJob.DoWork += new DoWorkEventHandler(CaptureBackgroundProgress);
+            this.CtrlButton_Cancel.Click += new EventHandler(RequestCancelBackgroundJob);
+        }
+        #endregion
+
+        #region RequestCancelBackgroundJob
+        private void RequestCancelBackgroundJob(object sender, EventArgs e)
+        {
+            this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Cancel, Message = "Try cancel !" });
+            try
+            {
+                this.BackgroundJob.Abort();
+                this.CtrlButton_Cancel.Enabled = false;
+                this.CtrlButton_Close.Enabled = true;
+                this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Abort, Message = "The background job was abort !" });
+            }
+            catch (Exception)
+            {
+                this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Failed, Message = "Unabled to cancel background job !" });
+            }
         }
         #endregion
 
         #region CaptureBackgroundProgress
-        private void CaptureBackgroundProgress(object sender, DoWorkEventArgs e)
+        private void CaptureBackgroundProgress()
         {
             this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Start, Message = "AIEDITOR search operation is starting!" });
+            if (this.AssemblyInformation.IncludeFolders.Count > 0)
+            {
+                foreach (FolderProperty item in this.AssemblyInformation.IncludeFolders)
+                {
+                    this.SearchIncludedFolder(new DirectoryInfo(item.SelectedPath), item.IncludeSubDirectories);
+                }
+            }
+            else this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Skip, Message = "You do not set the folder you want to search!" });
         }
         #endregion
 
         #region StartBackgroundJob
         private void StartBackgroundJob()
         {
-            this.CtrlBackgroundWorker_BuildJob.RunWorkerAsync();
+            this.BackgroundJob = new Thread(new ThreadStart(this.CaptureBackgroundProgress));
+            this.BackgroundJob.Start();
+        }
+        #endregion
+
+        #region SetProgressImageVisible
+        private void SetProgressImageVisible(bool visible)
+        {
+            this.CtrlPictureBox_Progress.Visible = visible;
+        }
+        #endregion
+
+        #region SearchIncludedFolder
+        private void SearchIncludedFolder(DirectoryInfo folder, bool includeSubs)
+        {
+            this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Searching, Message = string.Format("Now searching the folder [{0}]", folder.FullName) });
+            if (!this.IsExcludedFolder(folder.FullName))
+            {
+                DirectoryInfo[] subs = folder.GetDirectories();
+                if (includeSubs && subs.Length > 0)
+                {
+                    foreach (DirectoryInfo item in subs) this.SearchIncludedFolder(item, includeSubs);
+                }
+            }
+            else this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Skip, Message = string.Format("This folder [{0}] is excluded outside the search scope!", folder.FullName) });
+        }
+        #endregion
+
+        #region IsExcludedFolder
+        private bool IsExcludedFolder(string path)
+        {
+            var enumerator = from item in this.AssemblyInformation.ExcludeFolders where item.SelectedPath.ToLower().Equals(path.ToLower()) select item;
+            return enumerator.Count<FolderProperty>() > 0;
+        }
+        #endregion
+
+        #region GetAssemblyFiles
+        private FileInfo[] GetAssemblyFiles(DirectoryInfo folder)
+        {
+            string filter = "";
+            switch (this.AssemblyInformation.PlatformID)
+            {
+                case Platform.CsharpAndVB: filter = "*.cs|*.vb"; break;
+                case Platform.Csharp: filter = "*.cs"; break;
+                case Platform.VisualBasic: filter = "*.vb"; break;
+            }
+            return folder.GetFiles(filter, SearchOption.TopDirectoryOnly);
         }
         #endregion
     }

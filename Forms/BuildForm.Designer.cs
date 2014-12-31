@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BuildForm));
-            this.CtrlBackgroundWorker_BuildJob = new System.ComponentModel.BackgroundWorker();
             this.CtrlRichTextBox_Progress = new System.Windows.Forms.RichTextBox();
             this.CtrlPanel_Title = new System.Windows.Forms.Panel();
             this.CtrlLabel_Title = new System.Windows.Forms.Label();
@@ -41,10 +40,6 @@
             this.CtrlPanel_Buttons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlPictureBox_Progress)).BeginInit();
             this.SuspendLayout();
-            // 
-            // CtrlBackgroundWorker_BuildJob
-            // 
-            this.CtrlBackgroundWorker_BuildJob.WorkerSupportsCancellation = true;
             // 
             // CtrlRichTextBox_Progress
             // 
@@ -164,7 +159,6 @@
         private System.Windows.Forms.Panel CtrlPanel_Title;
         private System.Windows.Forms.Label CtrlLabel_Title;
         private System.Windows.Forms.RichTextBox CtrlRichTextBox_Progress;
-        private System.ComponentModel.BackgroundWorker CtrlBackgroundWorker_BuildJob;
         private System.Windows.Forms.Button CtrlButton_Close;
     }
 }

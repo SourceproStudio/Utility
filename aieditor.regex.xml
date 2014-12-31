@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <wyc:sourcepro.utility.aieditor xmlns:wyc="https://github.com/SourceproStudio" xmlns:all="urn:CsharpAndVB" xmlns:cs="urn:Csharp" xmlns:vb="urn:VisualBasic">
   <wyc:regularExpressions>
+    <wyc:regex wyc:category="FileFilter">
+      <all:text>AssemblyInfo\.(?&lt;ExtName&gt;(cs|vb))</all:text>
+      <cs:text>AssemblyInfo\.cs</cs:text>
+      <vb:text>AssemblyInfo\.vb</vb:text>
+    </wyc:regex>
     <wyc:regex wyc:category="AssemblyTitle">
       <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyTitle\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
       <cs:text>\[assembly\s?:\s?AssemblyTitle\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)\]</cs:text>

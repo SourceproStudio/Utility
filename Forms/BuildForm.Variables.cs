@@ -22,6 +22,7 @@
 using System;
 using SourcePro.Csharp.Lab.Commons.Entity;
 using SourcePro.Csharp.Lab.ComponentModel.Trace;
+using System.Threading;
 
 namespace SourcePro.Csharp.Lab.Forms
 {
@@ -44,6 +45,15 @@ namespace SourcePro.Csharp.Lab.Forms
     {
         private AssemblyInformation _assemblyInformation;
         private TraceManager _trace;
+        private Thread _backgroundJob;
+
+        #region BackgroundJob
+        private Thread BackgroundJob
+        {
+            get { return _backgroundJob; }
+            set { _backgroundJob = value; }
+        }
+        #endregion
 
         #region AssemblyInformation
         public AssemblyInformation AssemblyInformation

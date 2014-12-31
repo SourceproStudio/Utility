@@ -59,6 +59,8 @@
     <Compile Include="Commons\JobProgress.cs" />
     <Compile Include="Commons\MessageBoxCaptions.cs" />
     <Compile Include="Commons\Platform.cs" />
+    <Compile Include="Commons\RegularExpressions\Regex.cs" />
+    <Compile Include="Commons\RegularExpressions\RegexCategory.cs" />
     <Compile Include="Commons\XNamespaces.cs" />
     <Compile Include="ComponentModel\BaseForm.cs">
       <SubType>Form</SubType>
