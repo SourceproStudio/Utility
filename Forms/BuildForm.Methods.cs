@@ -20,13 +20,15 @@
 #endregion
 
 using System;
-using SourcePro.Csharp.Lab.ComponentModel.Trace;
-using System.ComponentModel;
-using SourcePro.Csharp.Lab.Commons;
 using System.IO;
-using SourcePro.Csharp.Lab.Commons.Entity;
-using System.Threading;
 using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+using SourcePro.Csharp.Lab.Commons;
+using SourcePro.Csharp.Lab.Commons.Entity;
+using SourcePro.Csharp.Lab.Commons.RegularExpressions;
+using SourcePro.Csharp.Lab.ComponentModel.Trace;
 
 namespace SourcePro.Csharp.Lab.Forms
 {
@@ -47,6 +49,8 @@ namespace SourcePro.Csharp.Lab.Forms
     /// <seealso cref="SourcePro.Csharp.Lab.Forms"/>
     partial class BuildForm
     {
+        private Regex _regex;
+
         #region InitializeVariables
         private void InitializeVariables()
         {
@@ -60,6 +64,7 @@ namespace SourcePro.Csharp.Lab.Forms
             base.InitializeControls();
             this.SetProgressImageVisible(true);
             this.InitializeVariables();
+            this._regex = new Regex(this.AssemblyInformation.PlatformID);
             this.StartBackgroundJob();
         }
         #endregion
@@ -68,6 +73,14 @@ namespace SourcePro.Csharp.Lab.Forms
         protected override void RegisterControlsEventHandlers()
         {
             this.CtrlButton_Cancel.Click += new EventHandler(RequestCancelBackgroundJob);
+            this.CtrlButton_Close.Click += new EventHandler(CloseThisForm);
+        }
+        #endregion
+
+        #region CloseThisForm
+        private void CloseThisForm(object sender, EventArgs e)
+        {
+            this.Close();
         }
         #endregion
 
@@ -101,6 +114,21 @@ namespace SourcePro.Csharp.Lab.Forms
                 }
             }
             else this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Skip, Message = "You do not set the folder you want to search!" });
+            this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.End, Message = "AIEDITOR search opeartion is completed !" });
+            new MethodInvoker(this.AfterCompletedCallback).Invoke();
+        }
+        #endregion
+
+        #region AfterCompletedCallback
+        private void AfterCompletedCallback()
+        {
+            if (this.InvokeRequired)
+                this.Invoke(new MethodInvoker(this.AfterCompletedCallback));
+            else
+            {
+                this.CtrlButton_Close.Enabled = true;
+                this.CtrlButton_Cancel.Enabled = false;
+            }
         }
         #endregion
 
@@ -125,6 +153,7 @@ namespace SourcePro.Csharp.Lab.Forms
             this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Searching, Message = string.Format("Now searching the folder [{0}]", folder.FullName) });
             if (!this.IsExcludedFolder(folder.FullName))
             {
+                this.ScanEveryFile(folder);
                 DirectoryInfo[] subs = folder.GetDirectories();
                 if (includeSubs && subs.Length > 0)
                 {
@@ -143,17 +172,79 @@ namespace SourcePro.Csharp.Lab.Forms
         }
         #endregion
 
-        #region GetAssemblyFiles
-        private FileInfo[] GetAssemblyFiles(DirectoryInfo folder)
+        #region ScanEveryFile
+        private void ScanEveryFile(DirectoryInfo directory)
         {
-            string filter = "";
-            switch (this.AssemblyInformation.PlatformID)
+            FileInfo[] files = directory.GetFiles();
+            foreach (var item in files)
             {
-                case Platform.CsharpAndVB: filter = "*.cs|*.vb"; break;
-                case Platform.Csharp: filter = "*.cs"; break;
-                case Platform.VisualBasic: filter = "*.vb"; break;
+                if (this._regex.ValidateFileExtensionName(item, this.Trace))
+                {
+                    bool error = false;
+                    string content = this.ReadAndReplace(item, out error);
+                    if (!error)
+                    {
+                        this.Save(item, content);
+                        this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Successful | JobProgress.Writing, Message = "Update completed !" });
+                    }
+                    else this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Skip, Message = string.Format("Skip the file [{0}] !", item.FullName) });
+                }
             }
-            return folder.GetFiles(filter, SearchOption.TopDirectoryOnly);
+        }
+        #endregion
+
+        #region ReadAndReplace
+        private string ReadAndReplace(FileInfo file, out bool error)
+        {
+            StringBuilder str = new StringBuilder();
+            error = false;
+            using (Stream stream = file.OpenRead())
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    try
+                    {
+                        str.Append(this._regex.MatchAndReplace(file.Extension.TrimStart('.').ToLower().Equals("vb"), reader.ReadToEnd(), this.Trace, this.AssemblyInformation));
+                    }
+                    catch (Exception)
+                    {
+                        this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Failed, Message = string.Format("Exception thrown when reading the file [{0}]!", file.FullName) });
+                        error = true;
+                    }
+                    finally
+                    {
+                        reader.Close();
+                        stream.Close();
+                    }
+                }
+            }
+            return str.ToString();
+        }
+        #endregion
+
+        #region Save
+        private void Save(FileInfo destination, string text)
+        {
+            this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Writing | JobProgress.Doing, Message = string.Format("Updating file [{0}] !", destination.FullName) });
+            using (Stream stream = new FileStream(destination.FullName, FileMode.Create, FileAccess.Write))
+            {
+                using (StreamWriter writer = new StreamWriter(stream))
+                {
+                    try
+                    {
+                        writer.Write(text);
+                    }
+                    catch (Exception)
+                    {
+                        this.Trace.Output(new TraceViewerInvokerArgs() { Status = JobProgress.Failed | JobProgress.Writing, Message = "Update failed !" });
+                    }
+                    finally
+                    {
+                        writer.Close();
+                        stream.Close();
+                    }
+                }
+            }
         }
         #endregion
     }

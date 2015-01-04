@@ -211,7 +211,7 @@ namespace SourcePro.Csharp.Lab.Commons.Entity
         #endregion
 
         #region Manufacturer
-        [Category("Assembly Information"), Description("Set or get the assembly's manufacturer."), DisplayName("Assembly Manufacturer"), Browsable(true), ReadOnly(false), DefaultValue("SourcePro Studio")]
+        [Category("Assembly Information"), Description("Set or get the assembly's manufacturer."), DisplayName("Assembly Manufacturer"), Browsable(true), ReadOnly(false)]
         [XmlElement(ElementName = "assemblyManufacturer", Namespace = XNamespaces.NameSpace)]
         public string Manufacturer
         {

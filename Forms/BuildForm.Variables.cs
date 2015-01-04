@@ -19,10 +19,9 @@
 
 #endregion
 
-using System;
+using System.Threading;
 using SourcePro.Csharp.Lab.Commons.Entity;
 using SourcePro.Csharp.Lab.ComponentModel.Trace;
-using System.Threading;
 
 namespace SourcePro.Csharp.Lab.Forms
 {

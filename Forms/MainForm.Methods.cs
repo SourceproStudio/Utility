@@ -20,6 +20,7 @@
 #endregion
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -119,6 +120,53 @@ namespace SourcePro.Csharp.Lab.Forms
             this.CtrlMenuStripItem_Open.Click += new EventHandler(DoOpenProject);
             this.CtrlMenuStripItem_ClearRecently.Click += new EventHandler(DoClearRecently);
             this.CtrlMenuStripItem_Start.Click += new EventHandler(DoBuild);
+            this.CtrlMenuStripItem_SaveAs.Click += new EventHandler(DoSaveAs);
+            this.CtrlMenuStripItem_CodePlex.Click += new EventHandler(ViewCodeplex);
+            this.CtrlMenuStripItem_Github.Click += new EventHandler(ViewGit);
+            this.CtrlMenuStripItem_Exit.Click += new EventHandler(
+                    (sender, e) => { this.Close(); }
+                );
+        }
+        #endregion
+
+        #region ViewGit
+        private void ViewGit(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("iexplore.exe", "https://github.com/SourceproStudio/Utility/tree/AssemblyInfoEditor");
+            }
+            catch { }
+        }
+        #endregion
+
+        #region ViewCodeplex
+        private void ViewCodeplex(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("iexplore.exe", "https://aieditor.codeplex.com/");
+            }
+            catch { }
+        }
+        #endregion
+
+        #region DoSaveAs
+        private void DoSaveAs(object sender, EventArgs e)
+        {
+            AssemblyInformation information = this.CtrlPropertyGrid_Main.SelectedObject as AssemblyInformation;
+            string path = string.Empty;
+            if (this.CtrlSaveFileDialog_SaveProject.ShowDialog() == DialogResult.OK)
+            {
+                path = this.CtrlSaveFileDialog_SaveProject.FileName;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    information.Version.SetRawValues();
+                    information.FileVersion.SetRawValues();
+                    information.Save(path, true);
+                    this.SaveHistory(path);
+                }
+            }
         }
         #endregion
 

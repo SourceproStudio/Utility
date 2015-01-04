@@ -20,8 +20,8 @@
 #endregion
 
 using System;
-using SourcePro.Csharp.Lab.Commons;
 using System.Text;
+using SourcePro.Csharp.Lab.Commons;
 
 namespace SourcePro.Csharp.Lab.ComponentModel.Trace
 {

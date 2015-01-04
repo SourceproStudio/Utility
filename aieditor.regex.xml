@@ -1,40 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <wyc:sourcepro.utility.aieditor xmlns:wyc="https://github.com/SourceproStudio" xmlns:all="urn:CsharpAndVB" xmlns:cs="urn:Csharp" xmlns:vb="urn:VisualBasic">
-  <wyc:regularExpressions>
+  <wyc:regularExpressions all:comment="\/\*Generate\sBy\sAssemblyInfo\sEditor\s\d+\.\d+\.\d+.\d+,\sUpdate\sTime\s\d{4}\-\d{1,2}\-\d{1,2}\s\d{1,2}\:\d{1,2}\:\d{1,2}\*\/">
     <wyc:regex wyc:category="FileFilter">
       <all:text>AssemblyInfo\.(?&lt;ExtName&gt;(cs|vb))</all:text>
       <cs:text>AssemblyInfo\.cs</cs:text>
       <vb:text>AssemblyInfo\.vb</vb:text>
     </wyc:regex>
     <wyc:regex wyc:category="AssemblyTitle">
-      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyTitle\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
-      <cs:text>\[assembly\s?:\s?AssemblyTitle\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)\]</cs:text>
-      <vb:text>\&lt;Assembly\s?:\s?AssemblyTitle\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)\&gt;</vb:text>
+      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyTitle\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
+      <cs:text>\[assembly\s?:\s?AssemblyTitle\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)\]</cs:text>
+      <vb:text>\&lt;Assembly\s?:\s?AssemblyTitle\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)\&gt;</vb:text>
     </wyc:regex>
     <wyc:regex wyc:category="AssemblyDescription">
-      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyDescription\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
-      <cs:text>\[assembly\s?:\s?AssemblyDescription\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)\]</cs:text>
-      <vb:text>\&lt;Assembly\s?:\s?AssemblyDescription\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)\&gt;</vb:text>
+      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyDescription\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
+      <cs:text>\[assembly\s?:\s?AssemblyDescription\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)\]</cs:text>
+      <vb:text>\&lt;Assembly\s?:\s?AssemblyDescription\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)\&gt;</vb:text>
     </wyc:regex>
     <wyc:regex wyc:category="AssemblyCompany">
-      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyCompany\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
-      <cs:text>\[assembly\s?:\s?AssemblyCompany\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)\]</cs:text>
-      <vb:text>\&lt;Assembly\s?:\s?AssemblyCompany\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)\&gt;</vb:text>
+      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyCompany\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
+      <cs:text>\[assembly\s?:\s?AssemblyCompany\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)\]</cs:text>
+      <vb:text>\&lt;Assembly\s?:\s?AssemblyCompany\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)\&gt;</vb:text>
     </wyc:regex>
     <wyc:regex wyc:category="AssemblyProduct">
-      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyProduct\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
-      <cs:text>\[assembly\s?:\s?AssemblyProduct\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)\]</cs:text>
-      <vb:text>\&lt;Assembly\s?:\s?AssemblyProduct\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff]*)\&quot;\)\&gt;</vb:text>
+      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyProduct\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
+      <cs:text>\[assembly\s?:\s?AssemblyProduct\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)\]</cs:text>
+      <vb:text>\&lt;Assembly\s?:\s?AssemblyProduct\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff]*)\&quot;\)\&gt;</vb:text>
     </wyc:regex>
     <wyc:regex wyc:category="AssemblyCopyright">
-      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyCopyright\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff\(\)]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
-      <cs:text>\[assembly\s?:\s?AssemblyCopyright\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff\(\)]*)\&quot;\)\]</cs:text>
-      <vb:text>\&lt;Assembly\s?:\s?AssemblyCopyright\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff\(\)]*)\&quot;\)\&gt;</vb:text>
+      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyCopyright\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff\(\)]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
+      <cs:text>\[assembly\s?:\s?AssemblyCopyright\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff\(\)]*)\&quot;\)\]</cs:text>
+      <vb:text>\&lt;Assembly\s?:\s?AssemblyCopyright\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff\(\)]*)\&quot;\)\&gt;</vb:text>
     </wyc:regex>
     <wyc:regex wyc:category="AssemblyTrademark">
-      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyTrademark\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff\(\)]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
-      <cs:text>\[assembly\s?:\s?AssemblyTrademark\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff\(\)]*)\&quot;\)\]</cs:text>
-      <vb:text>\&lt;Assembly\s?:\s?AssemblyTrademark\(\&quot;(?&lt;Text&gt;[a-zA-Z0-9\s\u0080-\uffff\(\)]*)\&quot;\)\&gt;</vb:text>
+      <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyTrademark\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff\(\)]*)\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>
+      <cs:text>\[assembly\s?:\s?AssemblyTrademark\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff\(\)]*)\&quot;\)\]</cs:text>
+      <vb:text>\&lt;Assembly\s?:\s?AssemblyTrademark\(\&quot;(?&lt;Text&gt;[a-z0-9A-Z\s\u0021\u0000\u0023-\u0027\u002A-\u002F\u003A-\u0040\u005c\u005e-\u0060\u007b-\u007f\u0080-\uffff\(\)]*)\&quot;\)\&gt;</vb:text>
     </wyc:regex>
     <wyc:regex wyc:category="AssemblyVersion">
       <all:text>(?&lt;Start&gt;[\&lt;\[])[Aa]ssembly\s?:\s?AssemblyVersion\(\&quot;(?&lt;Text&gt;(\d+.\d+.\*)|(\d+.\d+.\d+.\*)|(\d+.\d+.\d+.\d+))\&quot;\)(?&lt;End&gt;[\&gt;\]])</all:text>

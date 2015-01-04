@@ -47,11 +47,6 @@
             this.CtrlMenuStripItem_Help = new System.Windows.Forms.ToolStripMenuItem();
             this.CtrlMenuStripItem_Github = new System.Windows.Forms.ToolStripMenuItem();
             this.CtrlMenuStripItem_CodePlex = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.CtrlMenuStripItem_VisualStudio = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.CtrlMenuStripItem_About = new System.Windows.Forms.ToolStripMenuItem();
-            this.CtrlMenuStripItem_License = new System.Windows.Forms.ToolStripMenuItem();
             this.CtrlStatusStrip_Main = new System.Windows.Forms.StatusStrip();
             this.CtrlStatusLabel_Copyright = new System.Windows.Forms.ToolStripStatusLabel();
             this.CtrlStatusLabel_Version = new System.Windows.Forms.ToolStripStatusLabel();
@@ -193,12 +188,7 @@
             // 
             this.CtrlMenuStripItem_Help.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CtrlMenuStripItem_Github,
-            this.CtrlMenuStripItem_CodePlex,
-            this.toolStripSeparator5,
-            this.CtrlMenuStripItem_VisualStudio,
-            this.toolStripSeparator6,
-            this.CtrlMenuStripItem_About,
-            this.CtrlMenuStripItem_License});
+            this.CtrlMenuStripItem_CodePlex});
             this.CtrlMenuStripItem_Help.Name = "CtrlMenuStripItem_Help";
             this.CtrlMenuStripItem_Help.Size = new System.Drawing.Size(45, 20);
             this.CtrlMenuStripItem_Help.Text = "&Help";
@@ -207,44 +197,15 @@
             // 
             this.CtrlMenuStripItem_Github.Image = ((System.Drawing.Image)(resources.GetObject("CtrlMenuStripItem_Github.Image")));
             this.CtrlMenuStripItem_Github.Name = "CtrlMenuStripItem_Github";
-            this.CtrlMenuStripItem_Github.Size = new System.Drawing.Size(164, 22);
+            this.CtrlMenuStripItem_Github.Size = new System.Drawing.Size(152, 22);
             this.CtrlMenuStripItem_Github.Text = "&Github";
             // 
             // CtrlMenuStripItem_CodePlex
             // 
             this.CtrlMenuStripItem_CodePlex.Image = ((System.Drawing.Image)(resources.GetObject("CtrlMenuStripItem_CodePlex.Image")));
             this.CtrlMenuStripItem_CodePlex.Name = "CtrlMenuStripItem_CodePlex";
-            this.CtrlMenuStripItem_CodePlex.Size = new System.Drawing.Size(164, 22);
+            this.CtrlMenuStripItem_CodePlex.Size = new System.Drawing.Size(152, 22);
             this.CtrlMenuStripItem_CodePlex.Text = "Code&Plex";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(161, 6);
-            // 
-            // CtrlMenuStripItem_VisualStudio
-            // 
-            this.CtrlMenuStripItem_VisualStudio.Image = ((System.Drawing.Image)(resources.GetObject("CtrlMenuStripItem_VisualStudio.Image")));
-            this.CtrlMenuStripItem_VisualStudio.Name = "CtrlMenuStripItem_VisualStudio";
-            this.CtrlMenuStripItem_VisualStudio.Size = new System.Drawing.Size(164, 22);
-            this.CtrlMenuStripItem_VisualStudio.Text = "&Visual Studio";
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(161, 6);
-            // 
-            // CtrlMenuStripItem_About
-            // 
-            this.CtrlMenuStripItem_About.Name = "CtrlMenuStripItem_About";
-            this.CtrlMenuStripItem_About.Size = new System.Drawing.Size(164, 22);
-            this.CtrlMenuStripItem_About.Text = "&About This Utility";
-            // 
-            // CtrlMenuStripItem_License
-            // 
-            this.CtrlMenuStripItem_License.Name = "CtrlMenuStripItem_License";
-            this.CtrlMenuStripItem_License.Size = new System.Drawing.Size(164, 22);
-            this.CtrlMenuStripItem_License.Text = "&License";
             // 
             // CtrlStatusStrip_Main
             // 
@@ -344,11 +305,6 @@
         private System.Windows.Forms.ToolStripMenuItem CtrlMenuStripItem_Help;
         private System.Windows.Forms.ToolStripMenuItem CtrlMenuStripItem_Github;
         private System.Windows.Forms.ToolStripMenuItem CtrlMenuStripItem_CodePlex;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem CtrlMenuStripItem_VisualStudio;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripMenuItem CtrlMenuStripItem_About;
-        private System.Windows.Forms.ToolStripMenuItem CtrlMenuStripItem_License;
         private System.Windows.Forms.StatusStrip CtrlStatusStrip_Main;
         private System.Windows.Forms.ToolStripStatusLabel CtrlStatusLabel_Copyright;
         private System.Windows.Forms.ToolStripStatusLabel CtrlStatusLabel_Version;

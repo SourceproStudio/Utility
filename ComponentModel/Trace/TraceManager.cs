@@ -19,9 +19,7 @@
 
 #endregion
 
-using System;
 using System.Windows.Forms;
-using SourcePro.Csharp.Lab.Commons;
 
 namespace SourcePro.Csharp.Lab.ComponentModel.Trace
 {
